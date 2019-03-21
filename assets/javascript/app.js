@@ -14,11 +14,12 @@ Quiz.prototype.isEnded = function() {
     return this.questions.length === this.questionIndex;
 }
 Quiz.prototype.guess = function(answer) {
-    this.questionIndex++;
+    
 
     if(this.getQuestionIndex() .correctAnswer(answer)) {
         this.score++;
     }
+    this.questionIndex++;
 }
 
 
@@ -35,6 +36,7 @@ function populate() {
             element.innerHTML = choices[i];
             guess("btn" + i, choices[i]);
         }
+        showProgress();
     }
 function guess(id, guess){
     var button = document.getElementById(id);
@@ -46,9 +48,15 @@ function guess(id, guess){
 
 };
 
+function showProgress() {
+    var currentQuestionNumber = quiz.questionIndex + 1;
+    var element = document.getElementById("progress");
+    element.innerHTML = "Question " + currentQuestionNumber + " of " + quiz.questions.length;
+}
+
 function showScores() {
     var gameOverHtml = "<h1>Result</h1>";
-        gameOverHtml += "<h2 id= 'score'> Your scores: " + quiz.score + "</h2>";
+        gameOverHtml += "<h2 id= 'score'> Correct Answers: " + quiz.score + "</h2>";
     var element = document.getElementById("quiz");
     element.innerHTML = gameOverHtml;
 }
